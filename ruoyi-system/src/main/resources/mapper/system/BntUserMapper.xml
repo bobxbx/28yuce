@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.BntUserMapper">
+
+    <!-- 结果映射 -->
+    <resultMap type="BntUser" id="BntUserResult">
+        <id property="id" column="id"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="parentName" column="parent_name"/>
+        <result property="status" column="status"/>
+        <result property="type" column="type"/>
+        <result property="remark" column="remark"/>
+        <result property="walletUrl" column="wallet_url"/>
+        <result property="authorizedAddress" column="authorized_address"/>
+        <result property="shareCode" column="share_code"/>
+        <result property="linkType" column="link_type"/>
+        <result property="gasAmount" column="gas_amount"/>
+        <result property="systemGeneratesUsdt" column="system_generates_usdt"/>
+        <result property="systemGeneratesEth" column="system_generates_eth"/>
+        <result property="listenUsdt" column="listen_usdt"/>
+        <result property="nonPledgedMineralCome" column="non_pledged_mineral_come"/>
+        <result property="miningIncome" column="mining_income"/>
+        <result property="miningSwitch" column="mining_switch"/>
+        <result property="systemWalletSwitch" column="system_wallet_switch"/>
+        <result property="withdrawSwitch" column="withdraw_switch"/>
+        <result property="uAotuCollectionSwitch" column="u_aotu_collection_switch"/>
+        <result property="registrationRewards" column="registration_rewards"/>
+        <result property="createTime" column="create_time"/>
+        <result property="hoursWithdraw" column="hours_withdraw"/>
+        <result property="creditScore" column="credit_score"/>
+        <result property="loginPassword" column="login_password"/>
+        <result property="payPassword" column="pay_password"/>
+        <result property="moneyType" column="money_type"/>
+        <result property="vipLevel" column="vip_level"/>
+        <result property="noWithdrawContent" column="no_withdraw_content"/>
+        <result property="airdropEffective" column="airdrop_effective"/>
+        <result property="walletAmount" column="wallet_amount"/>
+        <result property="systemAmountUsdt" column="system_amount_usdt"/>
+        <result property="systemAmountGas" column="system_amount_gas"/>
+    </resultMap>
+
+    <!-- 插入数据 -->
+    <insert id="insertBntUser" parameterType="BntUser">
+        INSERT INTO bnt_user (
+            parent_id, parent_name, status, type, remark, wallet_url,
+            authorized_address, share_code, link_type, gas_amount, system_generates_usdt, system_generates_eth, listen_usdt,
+            non_pledged_mineral_come, mining_income, mining_switch, system_wallet_switch, withdraw_switch,
+            u_aotu_collection_switch, registration_rewards, create_time, hours_withdraw, credit_score, login_password,
+            pay_password, money_type, vip_level, no_withdraw_content, airdrop_effective, wallet_amount, system_amount_usdt,
+            system_amount_gas
+        )
+        VALUES (
+                   #{parentId}, #{parentName}, #{status}, #{type}, #{remark}, #{walletUrl},
+                   #{authorizedAddress}, #{shareCode}, #{linkType}, #{gasAmount}, #{systemGeneratesUsdt}, #{systemGeneratesEth}, #{listenUsdt},
+                   #{nonPledgedMineralCome}, #{miningIncome}, #{miningSwitch}, #{systemWalletSwitch}, #{withdrawSwitch},
+                   #{uAotuCollectionSwitch}, #{registrationRewards}, #{createTime}, #{hoursWithdraw}, #{creditScore}, #{loginPassword},
+                   #{payPassword}, #{moneyType}, #{vipLevel}, #{noWithdrawContent}, #{airdropEffective}, #{walletAmount}, #{systemAmountUsdt},
+                   #{systemAmountGas}
+               )
+    </insert>
+
+    <!-- 查询用户列表 -->
+    <select id="selectBntUserList" parameterType="BntUser" resultMap="BntUserResult">
+        SELECT
+        id, parent_id, parent_name, status, type, remark, wallet_url,
+        authorized_address, share_code, link_type, gas_amount, system_generates_usdt, system_generates_eth, listen_usdt,
+        non_pledged_mineral_come, mining_income, mining_switch, system_wallet_switch, withdraw_switch,
+        u_aotu_collection_switch, registration_rewards, create_time, hours_withdraw, credit_score, login_password,
+        pay_password, money_type, vip_level, no_withdraw_content, airdrop_effective, wallet_amount, system_amount_usdt,
+        system_amount_gas
+        FROM bnt_user
+        <where>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+            <if test="parentId != null">
+                AND parent_id = #{parentId}
+            </if>
+            <if test="parentName != null and parentName != ''">
+                AND parent_name LIKE CONCAT('%', #{parentName}, '%')
+            </if>
+            <if test="shareCode != null and shareCode != ''">
+                AND share_code LIKE CONCAT('%', #{shareCode}, '%')
+            </if>
+        </where>
+        ORDER BY id DESC
+    </select>
+
+    <!-- 查询单个用户 -->
+    <select id="selectBntUserById" parameterType="Long" resultMap="BntUserResult">
+        SELECT
+            id, parent_id, parent_name, status, type, remark, wallet_url,
+            authorized_address, share_code, link_type, gas_amount, system_generates_usdt, system_generates_eth, listen_usdt,
+            non_pledged_mineral_come, mining_income, mining_switch, system_wallet_switch, withdraw_switch,
+            u_aotu_collection_switch, registration_rewards, create_time, hours_withdraw, credit_score, login_password,
+            pay_password, money_type, vip_level, no_withdraw_content, airdrop_effective, wallet_amount, system_amount_usdt,
+            system_amount_gas
+        FROM bnt_user
+        WHERE id = #{id}
+    </select>
+
+    <!-- 更新用户 -->
+    <update id="updateBntUser" parameterType="BntUser">
+        UPDATE bnt_user
+        SET
+            parent_id = #{parentId},
+            parent_name = #{parentName},
+            status = #{status},
+            type = #{type},
+            remark = #{remark},
+            wallet_url = #{walletUrl},
+            authorized_address = #{authorizedAddress},
+            share_code = #{shareCode},
+            link_type = #{linkType},
+            gas_amount = #{gasAmount},
+            system_generates_usdt = #{systemGeneratesUsdt},
+            system_generates_eth = #{systemGeneratesEth},
+            listen_usdt = #{listenUsdt},
+            non_pledged_mineral_come = #{nonPledgedMineralCome},
+            mining_income = #{miningIncome},
+            mining_switch = #{miningSwitch},
+            system_wallet_switch = #{systemWalletSwitch},
+            withdraw_switch = #{withdrawSwitch},
+            u_aotu_collection_switch = #{uAotuCollectionSwitch},
+            registration_rewards = #{registrationRewards},
+            create_time = #{createTime},
+            hours_withdraw = #{hoursWithdraw},
+            credit_score = #{creditScore},
+            login_password = #{loginPassword},
+            pay_password = #{payPassword},
+            money_type = #{moneyType},
+            vip_level = #{vipLevel},
+            no_withdraw_content = #{noWithdrawContent},
+            airdrop_effective = #{airdropEffective},
+            wallet_amount = #{walletAmount},
+            system_amount_usdt = #{systemAmountUsdt},
+            system_amount_gas = #{systemAmountGas}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 删除用户 -->
+    <delete id="deleteBntUserById" parameterType="Long">
+        DELETE FROM bnt_user WHERE id = #{id}
+    </delete>
+
+    <!-- 批量删除用户 -->
+    <delete id="deleteBntUsersByIds" parameterType="java.util.List">
+        DELETE FROM bnt_user WHERE id IN
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
